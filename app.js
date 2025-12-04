@@ -6,6 +6,8 @@ const Listing = require("./models/listing");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejs = require("ejs-mate");
+const wrapAsync = require("./utils/wrapAsync");
+const ExpressError = require("./utils/ExpressError");
 app.use(methodOverride("_method"));
 /*This is setting up the view engine and static files*/
 app.engine("ejs", ejs);
@@ -55,21 +57,29 @@ app.get("/listings/new", (req, res) => {
 });
 
 //create listing
-app.post("/listings", async (req, res) => {
-  let { title, description, image, price, location, country } = req.body;
-  price = parseFloat(price);
-  const newListing = new Listing({
-    title,
-    description,
-    image,
-    price,
-    location,
-    country,
-  });
-  console.log(newListing);
-  await newListing.save();
-  res.redirect("/listings");
-});
+app.post(
+  "/listings",
+  wrapAsync(async (req, res, next) => {
+    // let { title, description, image, price, location, country } = req.body;
+    // price = parseFloat(price);
+    // const newListing = new Listing({
+    //   title,
+    //   description,
+    //   image,
+    //   price,
+    //   location,
+    //   country,
+    // });
+    if (!req.body.listing) throw new ExpressError(400, "Invalid Listing Data");
+    const newListing = new Listing(req.body.listing);
+    if (!newListing.description) {
+      throw new ExpressError(400, "Description is required");
+    }
+    console.log(newListing);
+    await newListing.save();
+    res.redirect("/listings");
+  })
+);
 
 //show route
 app.get("/listings/:id", async (req, res) => {
@@ -105,4 +115,13 @@ app.delete("/listings/:id", async (req, res) => {
   const { id } = req.params;
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
+});
+
+app.all(/(.*)/, (req, res, next) => {
+  next(new ExpressError(404, "Page Not Found!"));
+});
+app.use((err, req, res, next) => {
+  let { statusCode = 500, message = "Something went wrong!" } = err;
+  // res.status(statusCode).send(message);
+  res.render("listings/error.ejs", { err });
 });

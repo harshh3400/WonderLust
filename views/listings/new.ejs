@@ -23,7 +23,6 @@
   </form>
 </body> -->
 <% layout('/layouts/boilerplate') -%>
-
 <div class="row">
   <div class="col-8 offset-2">
     <br /><br />
@@ -34,32 +33,33 @@
         <label for="title" class="form-label">Title</label>
         <input
           type="text"
-          name="title"
+          name="listing[title]"
           placeholder="Add a catchy title"
           class="form-control"
           required
         />
+        <div class="valid-feedback">Titles Looks good!</div>
       </div>
 
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
         <textarea
-          name="description"
+          name="listing[description]"
           class="form-control"
           cols="30"
           rows="5"
           required
         ></textarea>
+        <div class="invalid-feedback">Please Enter a valid Description!</div>
       </div>
 
       <div class="mb-3">
         <label for="image" class="form-label">Image URL</label>
         <input
           type="text"
-          name="image"
+          name="listing[image]"
           placeholder="https://..."
           class="form-control"
-          required
         />
       </div>
 
@@ -67,22 +67,24 @@
         <div class="mb-3 col-md-4">
           <label for="price" class="form-label">Price</label>
           <input
-            name="price"
+            name="listing[price]"
             placeholder="1200"
             class="form-control"
             required
           />
+          <div class="invalid-feedback">Please Enter a valid Price!</div>
         </div>
 
         <div class="mb-3 col-md-8">
           <label for="country" class="form-label">Country</label>
           <input
             type="text"
-            name="country"
+            name="listing[country]"
             placeholder="India"
             class="form-control"
             required
           />
+          <div class="invalid-feedback">Please Enter a valid Country!</div>
         </div>
       </div>
 
@@ -90,11 +92,12 @@
         <label for="location" class="form-label">Location</label>
         <input
           type="text"
-          name="location"
+          name="listing[location]"
           placeholder="Jaipur, Rajasthan"
           class="form-control"
           required
         />
+        <div class="invalid-feedback">Please Enter a valid Location!</div>
       </div>
 
       <button class="btn btn-dark add-btn mt-3 mb-5">Add Listing</button>

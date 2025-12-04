@@ -1,0 +1,126 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.container {
+  flex: 1;
+}
+.navbar {
+  height: 5rem;
+  background-color: white;
+}
+.fa-compass {
+  color: #fa424f;
+  font-size: 2rem;
+}
+.nav-link {
+  color: #222222 !important;
+}
+
+/* 1. Container Styling */
+.f-into {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers items horizontally */
+  justify-content: center;
+  text-align: center; /* Ensures text inside the divs is centered */
+  padding: 20px; /* Adds breathing room */
+  background-color: #ebebeb; /* Optional: Light gray background */
+}
+
+/* 2. Spacing between the three main sections */
+.f-info-social,
+.f-info-name,
+.f-info-links {
+  margin-bottom: 10px; /* Space between rows */
+}
+
+/* 3. Social Icons Styling */
+.f-info-social i {
+  font-size: 1.2rem; /* Makes icons slightly larger */
+  margin: 0 10px; /* Adds space between icons */
+  cursor: pointer;
+}
+
+/* 4. Links Styling */
+.f-info-links a {
+  text-decoration: none; /* Removes underline */
+  color: #222; /* Dark gray text */
+  margin: 0 10px; /* Adds space between links */
+}
+
+.f-info-links a:hover {
+  text-decoration: underline; /* Adds underline on hover */
+}
+/* Removes default link styles for the card wrapper */
+.listing-link {
+  text-decoration: none;
+  color: inherit; /* Keeps text black */
+}
+
+/* Adds a subtle hover effect to the card */
+.listing-card {
+  border: none !important; /* Optional: cleaner look without borders */
+  transition: transform 0.2s;
+  margin-bottom: 2rem;
+}
+
+.listing-card:hover {
+  transform: scale(1.02); /* Slight zoom on hover */
+  opacity: 0.9;
+}
+
+/* Ensures images have rounded corners at the top */
+.card-img-top {
+  border-radius: 1rem !important;
+}
+
+/* .card-body {
+  padding-left: 0;
+  padding-right: 0;
+} */
+.add-btn {
+  background-color: #fe424d !important;
+  border: none !important;
+}
+
+/* 1. Header Styling */
+.show-header {
+  font-weight: 700 !important;
+  margin-bottom: 15px;
+}
+
+/* 2. Image Styling for Show Page */
+.show-img {
+  height: 40vh; /* Taller image for the details page */
+  object-fit: cover;
+  border-radius: 10px !important; /* Rounded corners */
+}
+
+/* 3. Remove border from the card to make it look clean */
+.show-card {
+  border: none !important;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* 4. Buttons Container */
+.show-btns {
+  display: flex;
+  gap: 15px; /* Adds space between the two buttons */
+  margin-top: 10px;
+}
+
+/* 5. The "Airbnb Red" Edit Button */
+.edit-btn {
+  background-color: #fe424d !important;
+  border: none !important;
+  padding: 0.5rem 1.5rem; /* Wider clickable area */
+}
+
+/* 6. The Black Delete Button */
+.delete-btn {
+  background-color: #222222 !important;
+  padding: 0.5rem 1.5rem;
+}

@@ -1,0 +1,81 @@
+<% layout('/layouts/boilerplate') -%> <% layout('/layouts/boilerplate') -%>
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <br /><br />
+    <h3>Edit your Listing</h3>
+
+    <form method="post" action="/listings/<%= list._id %>?_method=PUT">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          name="title"
+          value="<%= list.title %>"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          name="description"
+          class="form-control"
+          cols="30"
+          rows="5"
+          required
+        >
+<%= list.description %></textarea
+        >
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Image URL</label>
+        <input
+          type="text"
+          name="image"
+          value="<%= list.image %>"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">Price</label>
+          <input
+            name="price"
+            value="<%= list.price %>"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label">Country</label>
+          <input
+            type="text"
+            name="country"
+            value="<%= list.country %>"
+            class="form-control"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input
+          type="text"
+          name="location"
+          value="<%= list.location %>"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <button class="btn btn-dark add-btn mt-3 mb-5">Update Listing</button>
+    </form>
+  </div>
+</div>

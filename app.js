@@ -2,15 +2,26 @@ const express = require("express");
 const mongoose = require("mongoose");
 const mongoose_URL = "mongodb://127.0.0.1:27017/wonderLust";
 const app = express();
-const Listing = require("./models/listing");
-const Review = require("./models/review");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejs = require("ejs-mate");
-const wrapAsync = require("./utils/wrapAsync");
+const listings = require("./routes/listing");
+const reviews = require("./routes/review");
 const ExpressError = require("./utils/ExpressError");
-
-const validateReview = require("./utils/reviewValidation");
+const session = require("express-session");
+const flash = require("connect-flash");
+const sessionOptions = {
+  secret: "mysecretsessioncode",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+app.use(session(sessionOptions));
+app.use(flash());
 app.use(methodOverride("_method"));
 /*This is setting up the view engine and static files*/
 app.engine("ejs", ejs);
@@ -36,114 +47,13 @@ app.listen(8080, () => {
 app.get("/", (req, res) => {
   res.send("Hello Route");
 });
+app.use((req, res, next) => {
+  res.locals.SUCCESS = req.flash("success");
 
-app.get("/listingtest", async (req, res) => {
-  const newListing = new Listing({
-    title: "Beautiful Beach House",
-    description: "A lovely beach house with stunning ocean views.",
-    image: "",
-    price: 350,
-    location: "Malibu, CA",
-    country: "USA",
-  });
-  await newListing.save();
-  res.send(newListing);
+  next();
 });
-app.get("/listings", async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("./listings/index.ejs", { allListings });
-});
-
-//new listing
-app.get("/listings/new", (req, res) => {
-  res.render("./listings/new.ejs");
-});
-
-//create listing
-app.post(
-  "/listings",
-  wrapAsync(async (req, res, next) => {
-    // let { title, description, image, price, location, country } = req.body;
-    // price = parseFloat(price);
-    // const newListing = new Listing({
-    //   title,
-    //   description,
-    //   image,
-    //   price,
-    //   location,
-    //   country,
-    // });
-    if (!req.body.listing) throw new ExpressError(400, "Invalid Listing Data");
-    const newListing = new Listing(req.body.listing);
-    if (!newListing.description) {
-      throw new ExpressError(400, "Description is required");
-    }
-    console.log(newListing);
-    await newListing.save();
-    res.redirect("/listings");
-  })
-);
-
-//show route
-app.get("/listings/:id", async (req, res) => {
-  const { id } = req.params;
-  const list = await Listing.findById(id).populate("review");
-  res.render("./listings/show.ejs", { list });
-});
-
-//edit route
-app.get("/listings/:id/edit", async (req, res) => {
-  const { id } = req.params;
-  const list = await Listing.findById(id);
-  res.render("./listings/edit.ejs", { list });
-});
-
-//update route
-app.put("/listings/:id", async (req, res) => {
-  const { id } = req.params;
-  let { title, description, image, price, location, country } = req.body;
-  await Listing.findByIdAndUpdate(id, {
-    title,
-    description,
-    image,
-    price,
-    location,
-    country,
-  });
-  res.redirect("/listings");
-});
-
-//delete route
-app.delete("/listings/:id", async (req, res) => {
-  const { id } = req.params;
-  await Listing.findByIdAndDelete(id);
-  res.redirect("/listings");
-});
-//review route
-app.post(
-  "/listings/:id/reviews",
-  validateReview,
-  wrapAsync(async (req, res) => {
-    let listing = await Listing.findById(req.params.id);
-    console.log(listing);
-    let newReview = new Review(req.body.review);
-    listing.review.push(newReview);
-    await newReview.save();
-    await listing.save();
-    console.log("New Review Saved!");
-    res.redirect(`/listings/${listing._id}`);
-  })
-);
-//delete reivew
-app.delete(
-  "/listings/:id/reviews/:reviewId",
-  wrapAsync(async (req, res) => {
-    let { id, reviewId } = req.params;
-    await Review.findByIdAndDelete(reviewId);
-    await Listing.findByIdAndUpdate(id, { $pull: { review: reviewId } });
-    res.redirect(`/listings/${id}`);
-  })
-);
+app.use("/listings", listings);
+app.use("/listings/:id/reviews", reviews);
 app.all(/(.*)/, (req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));
 });

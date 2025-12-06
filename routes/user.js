@@ -38,7 +38,6 @@ router.post(
   (req, res, next) => {
     console.log("Authentication successful! Redirecting...");
     res.redirect("/listings");
-    next();
   }
 );
 

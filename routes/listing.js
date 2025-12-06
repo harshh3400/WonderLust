@@ -6,14 +6,20 @@ const wrapAsync = require("../utils/wrapAsync");
 const ExpressError = require("../utils/ExpressError");
 const { isLoggedIn } = require("../middleware.js");
 const listingsController = require("../controllers/listings.js");
-
+const { storage } = require("../cloudConfig.js");
+const multer = require("multer");
+const upload = multer({ storage });
 //new listing
 router.get("/new", isLoggedIn, listingsController.renderNewForm);
 //index route
 router
   .route("/")
   .get(wrapAsync(listingsController.allListings))
-  .post(isLoggedIn, wrapAsync(listingsController.createListing));
+  .post(
+    isLoggedIn,
+    upload.single("listing[image]"),
+    wrapAsync(listingsController.createListing)
+  );
 
 router
   .route("/:id")

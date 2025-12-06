@@ -18,22 +18,15 @@ module.exports.showListing = async (req, res) => {
   res.render("./listings/show.ejs", { list });
 };
 module.exports.createListing = async (req, res, next) => {
-  // let { title, description, image, price, location, country } = req.body;
-  // price = parseFloat(price);
-  // const newListing = new Listing({
-  //   title,
-  //   description,
-  //   image,
-  //   price,
-  //   location,
-  //   country,
-  // });
   if (!req.body.listing) throw new ExpressError(400, "Invalid Listing Data");
+  let url = req.file.path;
+  let filename = req.file.filename;
   const newListing = new Listing(req.body.listing);
   if (!newListing.description) {
     throw new ExpressError(400, "Description is required");
   }
   console.log(newListing);
+  newListing.image = { url, filename };
   newListing.owner = req.user._id;
   await newListing.save();
   req.flash("success", "New Listing Added!");

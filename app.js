@@ -82,7 +82,9 @@
 //   // res.status(statusCode).send(message);
 //   res.render("listings/error.ejs", { err });
 // });
-
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
+}
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");

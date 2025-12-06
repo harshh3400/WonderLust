@@ -98,6 +98,10 @@
           <h5 class="card-title"><%=r.author.username%></h5>
           <p class="card-text"><%= r.comment %></p>
           <p class="card-text"><%= r.rating %> stars</p>
+          <p
+            class="starability-result card-text"
+            data-rating="<%= r.rating %>"
+          ></p>
         </div>
         <form
           mb-3

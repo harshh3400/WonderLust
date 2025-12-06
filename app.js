@@ -94,6 +94,14 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
+// 3. ESSENTIAL MIDDLEWARE (Parsing & Static)
+// Must be FIRST to handle form data and static files
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
+app.engine("ejs", ejs);
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 // Models
 const User = require("./models/user.js");
 
@@ -120,15 +128,6 @@ main()
   });
 
 // 2. APP CONFIGURATION (Views & EJS)
-app.engine("ejs", ejs);
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-
-// 3. ESSENTIAL MIDDLEWARE (Parsing & Static)
-// Must be FIRST to handle form data and static files
-app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_method"));
-app.use(express.static(path.join(__dirname, "public")));
 
 // 4. SESSION CONFIGURATION
 const sessionOptions = {
@@ -163,11 +162,11 @@ app.use((req, res, next) => {
 
 // 7. ROUTES
 // Demo User Route
-// app.get("/demouser", async (req, res) => {
-//   let user = new User({ email: "h@gmail.com", username: "harshad" });
-//   let newUser = await User.register(user, "password123");
-//   res.send(newUser);
-// });
+app.get("/demouser", async (req, res) => {
+  let user = new User({ email: "h@gmail.com", username: "harshad" });
+  let newUser = await User.register(user, "password123");
+  res.send(newUser);
+});
 
 // Mount Routes
 app.use("/", userRouter);

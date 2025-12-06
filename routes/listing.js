@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Listing = require("../models/listing");
+const review = require("../models/review.js");
 const wrapAsync = require("../utils/wrapAsync");
 const ExpressError = require("../utils/ExpressError");
-
+const { isLoggedIn } = require("../middleware.js");
 router.get("/listingtest", async (req, res) => {
   const newListing = new Listing({
     title: "Beautiful Beach House",
@@ -22,13 +23,14 @@ router.get("/", async (req, res) => {
 });
 
 //new listing
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("./listings/new.ejs");
 });
 
 //create listing
 router.post(
   "/",
+  isLoggedIn,
   wrapAsync(async (req, res, next) => {
     // let { title, description, image, price, location, country } = req.body;
     // price = parseFloat(price);
@@ -46,6 +48,7 @@ router.post(
       throw new ExpressError(400, "Description is required");
     }
     console.log(newListing);
+    newListing.owner = req.user._id;
     await newListing.save();
     req.flash("success", "New Listing Added!");
     res.redirect("/listings");
@@ -55,12 +58,20 @@ router.post(
 //show route
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const list = await Listing.findById(id).populate("review");
+  const list = await Listing.findById(id)
+    .populate({
+      path: "review",
+      populate: {
+        path: "author",
+      },
+    })
+    .populate("owner");
+
   res.render("./listings/show.ejs", { list });
 });
 
 //edit route
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit", isLoggedIn, async (req, res) => {
   const { id } = req.params;
   const list = await Listing.findById(id);
   req.flash("success", "Listing Updated Successfuly!");
@@ -68,7 +79,7 @@ router.get("/:id/edit", async (req, res) => {
 });
 
 //update route
-router.put("/:id", async (req, res) => {
+router.put("/:id", isLoggedIn, async (req, res) => {
   const { id } = req.params;
   let { title, description, image, price, location, country } = req.body;
   await Listing.findByIdAndUpdate(id, {
@@ -83,7 +94,7 @@ router.put("/:id", async (req, res) => {
 });
 
 //delete route
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isLoggedIn, async (req, res) => {
   const { id } = req.params;
   await Listing.findByIdAndDelete(id);
   req.flash("success", "Listing Deleted!");

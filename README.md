@@ -535,15 +535,15 @@ listingSchema.post("findOneAndDelete", async (listing) => {
 
 ### Authentication & Security
 
-| Package                     | Purpose | Usage                         |
-| --------------------------- | ------- | ----------------------------- | ---------------------------------------- |
-| **passport**                | ^0.7.0  | Authentication middleware     | User authentication framework            |
-| **passport-local**          | ^1.0.0  | Local strategy for Passport   | Username/password authentication         |
-| **passport-local-mongoose** | ^8.0.0  | Passport-Mongoose integration | Automatic password hashing, user methods |
-| **express-session**         | ^1.18.2 | Session middleware            | Managing user sessions                   |
-| **connect-mongo**           | ^5.0.0  | MongoDB session store         | Storing sessions in MongoDB              |
-| **connect-flash**           | ^0.1.1  | Flash message middleware      | Temporary messages (success/error)       |
-| **cookie-parser**           | ^1.4.7  | Cookie parsing                | Parsing cookies from requests            |
+| Package | Version | Purpose | Usage |
+|---------|---------|---------|-------|
+| **passport** | ^0.7.0 | Authentication middleware | User authentication framework |
+| **passport-local** | ^1.0.0 | Local strategy for Passport | Username/password authentication |
+| **passport-local-mongoose** | ^8.0.0 | Passport-Mongoose integration | Automatic password hashing, user methods |
+| **express-session** | ^1.18.2 | Session middleware | Managing user sessions |
+| **connect-mongo** | ^5.0.0 | MongoDB session store | Storing sessions in MongoDB |
+| **connect-flash** | ^0.1.1 | Flash message middleware | Temporary messages (success/error) |
+| **cookie-parser** | ^1.4.7 | Cookie parsing | Parsing cookies from requests |
 
 **How Authentication Works:**
 
@@ -568,11 +568,12 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 ### File Upload
 
-| Package                       | Purpose | Usage                        |
-| ----------------------------- | ------- | ---------------------------- | ---------------------------------- |
-| **multer**                    | ^2.0.2  | Handling multipart/form-data | Processing file uploads            |
-| **cloudinary**                | ^1.41.3 | Cloud storage service        | Storing images in cloud            |
-| **multer-storage-cloudinary** | ^4.0.0  | Cloudinary storage engine    | Integrating Multer with Cloudinary |
+| Package                   | Version | Purpose                   | Usage                          |
+|---------------------------|---------|---------------------------|---------------------------------|
+| multer                    | ^2.0.2  | Handling multipart/form-data | Processing file uploads        |
+| cloudinary                | ^1.41.3 | Cloud storage service     | Storing images in cloud         |
+| multer-storage-cloudinary | ^4.0.0  | Cloudinary storage engine | Integrating Multer with Cloudinary |
+
 
 **Upload Flow:**
 
@@ -596,9 +597,9 @@ let filename = req.file.filename; // Cloudinary public_id
 
 ### Validation & Error Handling
 
-| Package | Purpose | Usage           |
-| ------- | ------- | --------------- | ---------------------------- |
-| **joi** | ^18.0.2 | Data validation | Validating review input data |
+| Package | Purpose | Usage |
+|---------|---------|-------|
+| **joi** | Data validation | Validating review input data |
 
 **Example:**
 
@@ -617,11 +618,11 @@ function validateReview(req, res, next) {
 
 ### Utilities
 
-| Package             | Purpose | Usage                 |
-| ------------------- | ------- | --------------------- | ----------------------------------------- |
-| **method-override** | ^3.0.0  | HTTP verb spoofing    | Enabling PUT/DELETE in forms              |
-| **dotenv**          | ^17.2.3 | Environment variables | Loading .env file                         |
-| **axios**           | ^1.13.2 | HTTP client           | Making API requests (optional future use) |
+| Package | Version | Purpose | Usage |
+|---------|---------|---------|-------|
+| **method-override** | ^3.0.0 | HTTP verb spoofing | Enabling PUT/DELETE in forms |
+| **dotenv** | ^17.2.3 | Environment variables | Loading .env file |
+| **axios** | ^1.13.2 | HTTP client | Making API requests (optional future use) |
 
 **Method Override Example:**
 
@@ -1025,8 +1026,8 @@ This project is licensed under the ISC License.
 
 **Your Name**
 
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
+- GitHub: [@yourusername](https://github.com/harshh3400)
+
 
 ---
 

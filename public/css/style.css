@@ -22,11 +22,11 @@ body {
 .f-into {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers items horizontally */
+  align-items: center;
   justify-content: center;
-  text-align: center; /* Ensures text inside the divs is centered */
+  text-align: center;
   padding: 20px; /* Adds breathing room */
-  background-color: #ebebeb; /* Optional: Light gray background */
+  background-color: #ebebeb;
 }
 
 /* 2. Spacing between the three main sections */
@@ -38,20 +38,20 @@ body {
 
 /* 3. Social Icons Styling */
 .f-info-social i {
-  font-size: 1.2rem; /* Makes icons slightly larger */
-  margin: 0 10px; /* Adds space between icons */
+  font-size: 1.2rem;
+  margin: 0 10px;
   cursor: pointer;
 }
 
 /* 4. Links Styling */
 .f-info-links a {
-  text-decoration: none; /* Removes underline */
-  color: #222; /* Dark gray text */
-  margin: 0 10px; /* Adds space between links */
+  text-decoration: none;
+  color: #222;
+  margin: 0 10px;
 }
 
 .f-info-links a:hover {
-  text-decoration: underline; /* Adds underline on hover */
+  text-decoration: underline;
 }
 /* Removes default link styles for the card wrapper */
 .listing-link {
@@ -61,7 +61,7 @@ body {
 
 /* Adds a subtle hover effect to the card */
 .listing-card {
-  border: none !important; /* Optional: cleaner look without borders */
+  border: none !important;
   transition: transform 0.2s;
   margin-bottom: 2rem;
 }
@@ -93,9 +93,9 @@ body {
 
 /* 2. Image Styling for Show Page */
 .show-img {
-  height: 40vh; /* Taller image for the details page */
+  height: 40vh;
   object-fit: cover;
-  border-radius: 10px !important; /* Rounded corners */
+  border-radius: 10px !important;
 }
 
 /* 3. Remove border from the card to make it look clean */
@@ -125,19 +125,6 @@ body {
   padding: 0.5rem 1.5rem;
 }
 
-/* .btn-search {
-  background-color: #fe424d;
-  color: #fff;
-  border-radius: 25px;
-}
-
-.btn-search:hover {
-  background-color: #fe424d;
-  color: #fff;
-}
-.search-button {
-  display: inline;
-} */
 .btn-search {
   background-color: #fe424d;
   color: #fff;

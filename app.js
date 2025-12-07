@@ -189,9 +189,9 @@ app.use("/", userRouter);
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
 
-// app.get("/", (req, res) => {
-//   res.send("Hello Route");
-// });
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 
 // 8. ERROR HANDLING
 // FIX: Use regex /(.*)/ instead of "*" for Express 5 compatibility

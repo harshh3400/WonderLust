@@ -92,7 +92,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejs = require("ejs-mate");
 const session = require("express-session");
-// const MongoStore = require("connect-mongo");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -133,19 +133,19 @@ main()
 // 2. APP CONFIGURATION (Views & EJS)
 
 // 4. SESSION CONFIGURATION
-// const store = MongoStore.create({
-//   mongoUrl: process.env.MONGO_API,
-//   crypto: {
-//     secret: "mysecretsessioncode",
-//   },
-//   touchAfter: 24 * 3600,
-// });
-// store.on("error", (err) => {
-//   console.log("ERROR in MONGO SESSION STORE", err);
-// });
+const store = MongoStore.create({
+  mongoUrl: process.env.MONGO_API,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
+store.on("error", (err) => {
+  console.log("ERROR in MONGO SESSION STORE", err);
+});
 const sessionOptions = {
   // store,
-  secret: "mysecretsessioncode",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {

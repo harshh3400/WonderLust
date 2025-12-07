@@ -24,7 +24,11 @@ router
 router
   .route("/:id")
   .get(wrapAsync(listingsController.showListing))
-  .put(isLoggedIn, wrapAsync(listingsController.updateListing))
+  .put(
+    isLoggedIn,
+    upload.single("image"),
+    wrapAsync(listingsController.updateListing)
+  )
   .delete(isLoggedIn, wrapAsync(listingsController.deleteListing));
 
 //edit route

@@ -1026,7 +1026,7 @@ This project is licensed under the ISC License.
 
 **Your Name**
 
-- GitHub: [@yourusername](https://github.com/harshh3400)
+- GitHub: [harshh3400](https://github.com/harshh3400)
 
 
 ---

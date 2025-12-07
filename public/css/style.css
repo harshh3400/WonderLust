@@ -124,3 +124,31 @@ body {
   background-color: #222222 !important;
   padding: 0.5rem 1.5rem;
 }
+
+/* .btn-search {
+  background-color: #fe424d;
+  color: #fff;
+  border-radius: 25px;
+}
+
+.btn-search:hover {
+  background-color: #fe424d;
+  color: #fff;
+}
+.search-button {
+  display: inline;
+} */
+.btn-search {
+  background-color: #fe424d;
+  color: #fff;
+  border-radius: 25px;
+  width: 200px;
+}
+.btn-search:hover {
+  background-color: #fe424d;
+  color: #fff;
+}
+.search-button {
+  display: inline;
+  font-size: small;
+}

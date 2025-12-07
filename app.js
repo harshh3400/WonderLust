@@ -92,6 +92,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejs = require("ejs-mate");
 const session = require("express-session");
+// const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -115,7 +116,7 @@ const listingsRouter = require("./routes/listing");
 const reviewsRouter = require("./routes/review");
 const userRouter = require("./routes/user.js");
 
-const mongoose_URL = "mongodb://127.0.0.1:27017/wonderLust";
+const mongoose_URL = process.env.MONGO_API;
 
 // 1. DATABASE CONNECTION
 async function main() {
@@ -132,7 +133,18 @@ main()
 // 2. APP CONFIGURATION (Views & EJS)
 
 // 4. SESSION CONFIGURATION
+// const store = MongoStore.create({
+//   mongoUrl: process.env.MONGO_API,
+//   crypto: {
+//     secret: "mysecretsessioncode",
+//   },
+//   touchAfter: 24 * 3600,
+// });
+// store.on("error", (err) => {
+//   console.log("ERROR in MONGO SESSION STORE", err);
+// });
 const sessionOptions = {
+  // store,
   secret: "mysecretsessioncode",
   resave: false,
   saveUninitialized: true,
